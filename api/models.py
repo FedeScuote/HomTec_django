@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator, MaxValueValidator
+from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
@@ -55,11 +55,41 @@ class Client(models.Model):
     description = models.TextField()
 
 
+# When a User does a publication, until it gets completed
 class Publication (models.Model):
-    client = models.ForeignKey('Client')
+    client = models.ForeignKey('Client', null=True)
+    mobile_user = models.ForeignKey('MobileUser')
+    completed = models.BooleanField(default=False)
+    description = models.TextField(null=True)
+    photo = models.ImageField(null=True)
 
 
+# Rating that is given to a Client
+class Rating (models.Model):
+    stars = models.IntegerField(validators=[
+        MaxValueValidator(5),
+        MinValueValidator(1)
+    ])
+    comment = models.TextField()
+    user = models.ForeignKey('Client', null=True)
 
+
+# Category that will fit to a publication
+class Category (models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "categories"
+
+
+# Subcategory for a more descriptive value, that will fit into a category
+class SubCategory(models.Model):
+    category = models.ForeignKey('Category', null=True)
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = "sub categories"
 
 
 
