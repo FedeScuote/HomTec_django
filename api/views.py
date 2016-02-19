@@ -10,3 +10,4 @@ class ClientViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list` and `detail` actions.
     """
     queryset = Client.objects.all()
+    serializer_class = ClientSerializer
