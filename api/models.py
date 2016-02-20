@@ -31,11 +31,30 @@ phone_regex = RegexValidator(
     message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
 
+# Category that will fit to a publication
+class Category (models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "categories"
+
+
+# Subcategory for a more descriptive value, that will fit into a category
+class SubCategory(models.Model):
+    category = models.ForeignKey('Category', null=True)
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = "sub categories"
+
+
 # The one who will use the mobile app.
 class MobileUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.IntegerField()
     state = models.CharField(max_length=3, choices=STATE_CHOICES, default='MVD')
+    country = CountryField(default='UY')
     phone_number = models.CharField(max_length=15, validators=[phone_regex], blank=True)
 
 
@@ -48,10 +67,10 @@ class Client(models.Model):
     name = models.CharField(max_length=30)
     address = models.CharField(max_length=30)
     state = models.CharField(max_length=3, choices=STATE_CHOICES, default='MVD')
-    country = CountryField()
+    country = CountryField(default='UY')
     phone_number = models.CharField(max_length=15, validators=[phone_regex], blank=True)
     logo = models.ImageField()
-    category = models.CharField(max_length=20, )
+    category = models.ForeignKey('Category')
     description = models.TextField()
 
 
@@ -72,52 +91,3 @@ class Rating (models.Model):
     ])
     comment = models.TextField()
     user = models.ForeignKey('Client', null=True)
-
-
-# Category that will fit to a publication
-class Category (models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-
-    class Meta:
-        verbose_name_plural = "categories"
-
-
-# Subcategory for a more descriptive value, that will fit into a category
-class SubCategory(models.Model):
-    category = models.ForeignKey('Category', null=True)
-    name = models.CharField(max_length=50)
-
-    class Meta:
-        verbose_name_plural = "sub categories"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

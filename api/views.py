@@ -1,5 +1,5 @@
-from .models import Client
-from .serializers import ClientSerializer
+from .models import Client, MobileUser
+from .serializers import ClientSerializer, MobileUserSerializer
 from rest_framework import generics
 from rest_framework import viewsets
 
@@ -11,3 +11,9 @@ class ClientViewSet(viewsets.ModelViewSet):
     """
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
+
+
+# List Create View for MobileUser model
+class MobileUserViewSet(viewsets.ModelViewSet):
+    queryset = MobileUser.objects.all()
+    serializer_class = MobileUserSerializer
