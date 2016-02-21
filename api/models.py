@@ -34,7 +34,10 @@ phone_regex = RegexValidator(
 # Category that will fit to a publication
 class Category (models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(null=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = "categories"
@@ -44,6 +47,9 @@ class Category (models.Model):
 class SubCategory(models.Model):
     category = models.ForeignKey('Category', null=True)
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = "sub categories"
@@ -56,6 +62,9 @@ class MobileUser(models.Model):
     state = models.CharField(max_length=3, choices=STATE_CHOICES, default='MVD')
     country = CountryField(default='UY')
     phone_number = models.CharField(max_length=15, validators=[phone_regex], blank=True)
+
+    def __str__(self):
+        return self.user.name
 
 
 # The Technician who will pay to appear on the app
@@ -73,6 +82,9 @@ class Client(models.Model):
     category = models.ForeignKey('Category')
     description = models.TextField()
 
+    def __str__(self):
+        return self.user.name
+
 
 # When a User does a publication, until it gets completed
 class Publication (models.Model):
@@ -81,6 +93,9 @@ class Publication (models.Model):
     completed = models.BooleanField(default=False)
     description = models.TextField(null=True)
     photo = models.ImageField(null=True)
+
+    def __str__(self):
+        return self.client.user.name + ' ' + self.mobile_user.user.name
 
 
 # Rating that is given to a Client
@@ -91,3 +106,6 @@ class Rating (models.Model):
     ])
     comment = models.TextField()
     user = models.ForeignKey('Client', null=True)
+
+    def __str__(self):
+        return self.user.name + ' ' + self.stars
