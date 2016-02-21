@@ -3,3 +3,4 @@
 *.pyc
 staticfiles
 /homtec/settings/development.py
+homtec/settings/local.py
