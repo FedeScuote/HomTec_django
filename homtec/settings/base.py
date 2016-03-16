@@ -112,4 +112,4 @@ DATABASES = {'default': dj_database_url.config()}
 DATABASES['default'].update(db_from_env)
 
 # Allow Cors
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
