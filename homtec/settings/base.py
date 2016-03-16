@@ -35,7 +35,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_countries',
     'social.apps.django_app.default',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
@@ -43,7 +43,7 @@ INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -112,4 +112,4 @@ DATABASES = {'default': dj_database_url.config()}
 DATABASES['default'].update(db_from_env)
 
 # Allow Cors
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
