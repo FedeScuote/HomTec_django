@@ -33,6 +33,7 @@ CUSTOM_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
     'django_countries',
     'social.apps.django_app.default',
     # 'corsheaders',
@@ -110,6 +111,14 @@ STATIC_ROOT = '/static/'
 db_from_env = dj_database_url.config()
 DATABASES = {'default': dj_database_url.config()}
 DATABASES['default'].update(db_from_env)
+
+# Rest framework config
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
 
 # Allow Cors
 # CORS_ORIGIN_ALLOW_ALL = True
